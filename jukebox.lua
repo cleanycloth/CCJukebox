@@ -22,7 +22,7 @@ if string.len(disc) > 0 then
   print("Attempting to play: "..disc)
   print("To stop playback, type \"jukestop\"")
 -- Play back disc - discs that don't exist will simply not play.
-  if not disc == "cd" then
+  if disc ~= "cd" then
     speaker.playSound("minecraft:music_disc."..disc)
   else
     cdplayer = peripheral.find("drive")
@@ -36,14 +36,14 @@ if string.len(disc) > 0 then
     end
     print("Playing from CD...")
     cdplayer.playAudio()
-    disc = cdplayer.getAudioTitle()
+    disc = cdplayer.getAudioTitle() -- Gives correct title for display from CD
   end
 -- Attempt to output info to monitor. If not found, skip
   monitor = peripheral.find("monitor")
   if monitor ~= nil then
     monitor.clear()
     monitor.setCursorPos(1,1)
-    monitor.setTextScale(3)
+    --monitor.setTextScale(2) (doesn't work for CDs with long names, will fix later)
     monitor.write("Now playing:")
     monitor.setCursorPos(1,2)
     monitor.write(disc)
