@@ -9,10 +9,19 @@ if speaker == nil then
   return false
 end
 
+-- Find drive to read from.
+-- If no drive is installed, quit.
+cdplayer = peripheral.find("drive")
+if cdplayer == nil then
+  print("Disk drive not found. Install one and try again.")
+return false
+end
+
 -- Print list of available records.
 -- TODO: Replace with array, allow for playback of mod records if possible
 print("Available options are:\nCD audio from installed drive\n11\n13\nBlocks\nCat\nChirp\nFar\nMall\nMellohi\nOtherside\nPigstep\nStal\nStrad\nWait\nWard")
 print("Enter a disc to play:")
+
 -- Get the user's input, set to lowercase, then remove all spaces
 disc = string.lower(io.read("*l"))
 disc = string.gsub(disc, "%s+", "")
@@ -25,11 +34,6 @@ if string.len(disc) > 0 then
   if disc ~= "cd" then
     speaker.playSound("minecraft:music_disc."..disc)
   else
-    cdplayer = peripheral.find("drive")
-    if cdplayer == nil then
-      print("Disk drive not found. Install one and try again.")
-      return false
-    end
     if cdplayer.hasAudio() == false then
     print("Disk not inserted or not audio CD. Insert one and try again.")
     return false
