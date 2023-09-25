@@ -14,7 +14,7 @@ end
 cdplayer = peripheral.find("drive")
 if cdplayer == nil then
   print("Disk drive not found. Install one and try again.")
-return false
+  return false
 end
 
 -- Print list of available records.
@@ -30,19 +30,20 @@ disc = string.gsub(disc, "%s+", "")
 if string.len(disc) > 0 then
   print("Attempting to play: "..disc)
   print("To stop playback, type \"jukestop\"")
--- Play back disc - discs that don't exist will simply not play.
+  -- Play back disc - discs that don't exist will simply not play.
   if disc ~= "cd" then
     speaker.playSound("minecraft:music_disc."..disc)
   else
     if cdplayer.hasAudio() == false then
-    print("Disk not inserted or not audio CD. Insert one and try again.")
-    return false
+      print("Disk not inserted or not audio CD. Insert one and try again.")
+      return false
     end
     print("Playing from CD...")
     cdplayer.playAudio()
     disc = cdplayer.getAudioTitle() -- Gives correct title for display from CD
   end
--- Attempt to output info to monitor. If not found, skip
+
+  -- Attempt to output info to monitor. If not found, skip
   monitor = peripheral.find("monitor")
   if monitor ~= nil then
     monitor.clear()
@@ -52,8 +53,8 @@ if string.len(disc) > 0 then
     monitor.setCursorPos(1,2)
     monitor.write(disc)
   end
-else
--- Quit if a disc is not specified
+
+else -- Quit if a disc is not specified
   print("Disc not specified, exiting...")
   return false
 end
